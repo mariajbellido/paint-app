@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import randomColor from "randomcolor";
 
 export default function Playground() {
   const [count, setCount] = useState(0);
   const [color, setColor] = useState(null);
 
+  const inputRef = useRef();
+
   useEffect(() => {
     setColor(randomColor());
+    inputRef.current.focus();
   }, [count]);
 
   // USE EFFECT
@@ -23,6 +26,13 @@ export default function Playground() {
       <button onClick={() => setCount((currentCount) => currentCount + 1)}>
         +
       </button>
+      <hr />
+      <input
+        ref={inputRef}
+        type="range"
+        onChange={(event) => setCount(event.target.value)}
+        value={count}
+      />
     </div>
   );
 }
