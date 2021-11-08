@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Name from "./Name";
 import ColorPicker from "./ColorPicker";
+import Canvas from "./Canvas";
 import randomColor from "randomcolor";
+import WindowSize from "./WindowSize";
 
 export default function Paint() {
   const [colors, setColors] = useState([]);
@@ -19,18 +21,32 @@ export default function Paint() {
 
   useEffect(getColors, []);
 
+  const headerRef = useRef({ offsetHeight: 0 });
+
   return (
-    <header style={{ borderTop: `10px solid ${activeColor}` }}>
-      <div className="app">
-        <Name />
-      </div>
-      <div style={{ marginTop: 10 }}>
-        <ColorPicker
-          colors={colors}
-          activeColor={activeColor}
-          setActiveColor={setActiveColor}
+    <div className="app">
+      <header
+        ref={headerRef}
+        style={{ borderTop: `10px solid ${activeColor}` }}
+      >
+        <div>
+          <Name />
+        </div>
+        <div style={{ marginTop: 10 }}>
+          <ColorPicker
+            colors={colors}
+            activeColor={activeColor}
+            setActiveColor={setActiveColor}
+          />
+        </div>
+      </header>
+      {activeColor && (
+        <Canvas
+          color={activeColor}
+          height={window.innerHeight - headerRef.current}
         />
-      </div>
-    </header>
+      )}
+      <WindowSize />
+    </div>
   );
 }
