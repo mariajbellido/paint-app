@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import randomColor from "randomcolor";
 
 export default function Playground() {
   const [count, setCount] = useState(0);
@@ -17,3 +16,6 @@ export default function Playground() {
 }
 
 // Podríamos usar count directamente, pero al manejarse el estado de forma asíncrona podríamos llegar a ver valores que no fueran correctos.
+
+// Performande inline functions
+// https://cdb.reacttraining.com/react-inline-functions-and-performance-bdff784f5578
